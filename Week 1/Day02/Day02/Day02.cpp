@@ -63,6 +63,18 @@ void FillGrades(std::vector<float>& course)
     }
 }
 
+//use const on parameters to prevent the method from changing them
+void PrintGrades(const std::string& className, const std::vector<float>& course)//pass by ref to prevent a copy
+{
+    //course.clear();
+    Console::WriteLine("\n" + className, ConsoleColor::Green);
+    for (int i = 0; i < course.size(); i++)
+    {
+        Console::WriteLine(course[i]);
+    }
+    std::cout << "\n\n";
+}
+
 int main()
 {
     int num1 = 10, num2 = 20;
@@ -106,13 +118,7 @@ int main()
 
     std::vector<float> grades;
     FillGrades(grades);
-    Console::WriteLine("\nPG2 2502", ConsoleColor::Green);
-    for (int i = 0; i < grades.size(); i++)
-    {
-        Console::WriteLine(grades[i]);
-    }
-    std::cout << "\n\n";
-
+    PrintGrades("PG2 2502", grades);
 
 
     /*
