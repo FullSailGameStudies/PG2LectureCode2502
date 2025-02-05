@@ -33,8 +33,39 @@ void printInfo(const std::vector<int>& scores)
     std::cout << "size: " << scores.size() << "\tcapacity: " << scores.capacity() << "\n";
 }
 
+
+int Sum(int n1, int n2)//pass by value
+{
+    return n1 + n2;
+}
+
+//when to use pass by reference?
+//  - when passing objects (not simple data types)
+//      for example: classes
+//pass by reference prevents a copy
+int Sum(std::vector<int>& numbers)
+{
+    int sum = 0;
+    for (auto& number : numbers) 
+        sum += number;
+    return sum;
+}
 int main()
 {
+    int num1 = 10, num2 = 20;
+    int sum = Sum(num1, num2);
+    std::vector<int> nums{ 1,2,3,4,5,6,7,8 };
+    sum = Sum(nums);
+    std::vector<int> nums2{ 11,12,13,14,15,16,17,18 };
+    sum = Sum(nums2);
+
+    //number1 is a new name for num1
+    int& number1 = num1;
+    std::cout << num1 << "\n";
+    number1 = 1;
+    std::cout << num1 << "\n";
+
+
     /*
         ╔══════════════════════════════╗
         ║Parameters: Pass by Reference.║
@@ -56,6 +87,7 @@ int main()
             Write a method to fill the vector of floats with grades.
             1) pass it in by reference
             2) add 10 grades to the vector
+            3) after calling the method, print the grades in main
 
     */
     std::vector<float> grades;
