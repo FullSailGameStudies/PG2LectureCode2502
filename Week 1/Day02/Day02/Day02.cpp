@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <string>
 #include <vector>
+#include <Console.h>
 
 bool postFix(std::string& hero)
 {
@@ -50,6 +51,18 @@ int Sum(std::vector<int>& numbers)
         sum += number;
     return sum;
 }
+
+void FillGrades(std::vector<float>& course)
+{
+    for (size_t i = 0; i < 10; i++)
+    {
+        //rand() - returns an int from 0-32767
+        //use % to limit ANY number to a range
+        //  it returns the REMAINDER after dividing by the number
+        course.push_back( rand() % 10001 / 100.0f );
+    }
+}
+
 int main()
 {
     int num1 = 10, num2 = 20;
@@ -90,7 +103,15 @@ int main()
             3) after calling the method, print the grades in main
 
     */
+
     std::vector<float> grades;
+    FillGrades(grades);
+    Console::WriteLine("\nPG2 2502", ConsoleColor::Green);
+    for (int i = 0; i < grades.size(); i++)
+    {
+        Console::WriteLine(grades[i]);
+    }
+    std::cout << "\n\n";
 
 
 
