@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <Console.h>
+#include "FullSailCourse.h"
 
 bool postFix(std::string& hero)
 {
@@ -31,6 +32,10 @@ void print(const std::vector<int>& scores)
 
 void printInfo(const std::vector<int>& scores)
 {
+    //size: # of items that have been added
+    //capacity: length of the internal array
+    //
+    //  size is ALWAYS <= capacity
     std::cout << "size: " << scores.size() << "\tcapacity: " << scores.capacity() << "\n";
 }
 
@@ -81,8 +86,14 @@ int main()
     int sum = Sum(num1, num2);
     std::vector<int> nums{ 1,2,3,4,5,6,7,8 };
     sum = Sum(nums);
-    std::vector<int> nums2{ 11,12,13,14,15,16,17,18 };
+    std::vector<int> nums2{ 11,12,14,15,16,17,18,18 };
     sum = Sum(nums2);
+    std::cout << "\n";
+    printInfo(nums2);
+    nums2.erase(nums2.begin() + 2);
+    printInfo(nums2);//size 7, cap: 8. 
+    nums2.push_back(19);
+    std::cout << "\n";
 
     //number1 is a new name for num1
     int& number1 = num1;
@@ -130,6 +141,8 @@ int main()
         This is the way you pass by reference and prevent the method from changing the variable.
     */
     std::vector<int> highScores;
+    highScores.reserve(10);
+    printInfo(highScores);//size: ?  capacity: ?
     for (int i = 0; i < 10; ++i)
     {
         highScores.push_back(rand() % 5000);
@@ -142,12 +155,17 @@ int main()
     /*
         CHALLENGE 2:
 
-            Write a method to calculate the stats on a vector of grades
-            1) create a method to calculate the min, max. 
-                pass the grades vector as a const reference. Use ref parameters for min and max.
+            Write a method in FullSailCourse to calculate the stats on a vector of grades
+            1) create a method to calculate the min, max.
+                pass the grades vector as a const reference.
+                Use ref parameters for min and max.
             2) call the method in main and print out the min, max.
 
     */
+    float minGrade, maxGrade;
+    FullSailCourse course;
+    course.CalculateStats(grades, minGrade, maxGrade);
+    std::cout << "Min: " << minGrade << "\nMax: " << maxGrade << "\n\n";
 
 
 
@@ -166,8 +184,43 @@ int main()
 
     */
     print(highScores);
-
     //erase all scores < 2500
+    for (int i = 0; i < highScores.size(); i++)
+    {
+        if (highScores[i] < 2500)
+        {
+            highScores.erase(highScores.begin() + i);
+            --i;//move the index back so that we evaluate the same spot again
+        }
+    }
+    //OR...
+    for (int i = 0; i < highScores.size();)
+    {
+        if (highScores[i] < 2500)
+        {
+            highScores.erase(highScores.begin() + i);
+        }
+        else
+            i++;
+    }
+    //OR... reverse for loop
+    for (int i = highScores.size() - 1; i >= 0; i--)
+    {
+        if (highScores[i] < 2500)
+        {
+            highScores.erase(highScores.begin() + i);
+        }
+    }
+    //OR...iterator loop
+    for (auto i = highScores.begin(); i != highScores.end(); )
+    {
+        if ((*i) < 2500)
+        {
+            i = highScores.erase(i);
+        }
+        else
+            i++;
+    }
 
     print(highScores);
 
