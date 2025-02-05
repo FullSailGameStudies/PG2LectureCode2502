@@ -18,6 +18,30 @@ void print(const std::vector<std::string>& names)
         std::cout << index++ << ". " << name << "\n";
 }
 
+class MenuItem
+{
+public:
+    MenuItem() { }
+    MenuItem(std::string name, float price)
+    {
+        itemName_ = name;
+        price_ = price;
+    }
+    std::string GetName() { return itemName_; }
+    float GetPrice() { return price_; }
+
+    void SetName(std::string name) {
+        itemName_ = name;
+    }
+    void SetPrice(float price) {
+        price_ = price;
+    }
+
+private:
+    std::string itemName_;
+    float price_;
+};
+
 
 int main()
 {
@@ -33,6 +57,65 @@ int main()
     Console::SetCursorLeft(15);
     Console::WriteLine("Hello PG2!", ConsoleColor::Yellow, ConsoleColor::Red);
     Input::PressEnter("Press enter to continue...", true);
+
+    MenuItem item;
+    item.SetName("cheese pizza");
+    item.SetPrice(10.99f);
+    MenuItem item2("hot dog", 1.49f);
+
+    std::vector<MenuItem> menu;
+    menu.push_back(item);
+    menu.push_back(item2);//index 1
+    menu.push_back(MenuItem("French Fries", 4.99f));
+    menu.push_back(MenuItem("Cheese Burger", 9.99f));
+    menu.push_back(MenuItem("Ice Cream", 7.99f));
+
+    //menu.erase(menu.begin() + 1);
+
+    Console::WriteLine("    PG2 Cafe    ", ConsoleColor::Yellow, ConsoleColor::Blue);
+    //Console::Write(menu);
+    //std::cout << menu << "\n";
+    for (int i = 0; i < menu.size(); i++)
+    {
+        //MenuItem currentItem = menu[i];//get to the object
+        //std::string name = currentItem.GetName();//get to the details of the object
+        //float price = currentItem.GetPrice();
+        std::cout << menu[i].GetName() << "\t\t" << menu[i].GetPrice() << "\n";
+    }
+    std::cout << "\n\n";
+
+    Console::WriteLine("    PG2 Cafe    ", ConsoleColor::Yellow, ConsoleColor::Blue);
+    for (auto& menuItem : menu)
+    {
+        Console::Write(menuItem.GetName());
+        Console::SetCursorLeft(17);
+        Console::WriteLine(menuItem.GetPrice(), ConsoleColor::Yellow);
+    }
+    std::cout << "\n\n";
+
+    //.begin() - gives an iterator to the first item
+    //.end() - gives an iterator to the item AFTER last item??
+
+    Console::WriteLine("    PG2 Cafe    ", ConsoleColor::Yellow, ConsoleColor::Blue);
+
+    std::vector<MenuItem>::iterator iter = menu.begin();
+    //std::cout << iter->GetName();
+    for (auto iterator = menu.begin(); iterator != menu.end(); iterator++)
+    {
+        //== is case sensitive
+        // _stricmp(char* s1,char* s2)
+        // returns an int
+        //      < 0  s1 is less than s2
+        //      = 0  s1 is equal to s2
+        //      > 0  s1 is greater than s2
+        if (_stricmp(iterator->GetName().c_str(),"Hot Dog") == 0)
+        {
+            iterator = menu.erase(iterator);
+        }
+        //else
+            std::cout << iterator->GetName() << "\t" << iterator->GetPrice() << "\n";
+    }
+    std::cout << "\n\n";
 
     /*
       Calling a method
@@ -63,7 +146,8 @@ int main()
     //calling a non-static method, use the variable...
     Calculator t1000;
     int diff = t1000.minus(7, 2);
-
+    int sum = t1000.add(5, 2);
+    std::cout << sum << "\n";
 
     /*
         CHALLENGE:
