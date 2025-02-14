@@ -7,11 +7,50 @@
 #include <vector>
 #include "Console.h"
 #include "Input.h"
+#include <iomanip>
 
 enum class Weapon
 {
     Sword, Axe, Spear, Mace
 };
+
+/// <summary>
+/// Searches a vector for a number using the linear search algorithm.
+/// </summary>
+/// <param name="nums">The vector to search in.</param>
+/// <param name="searchNumber">The number to search for.</param>
+/// <returns>-1 if not found. the index of the number if found.</returns>
+int LinearSearch(const std::vector<int>& nums, int searchNumber)
+{
+    for (int i = 0; i < nums.size(); i++)
+    {
+        if (searchNumber == nums[i])
+        {
+            return i;
+        }
+    }
+    return -1;//NOT FOUND
+}
+
+void PrintGrades(const std::map<std::string, double>& grades)
+{
+    Console::WriteLine("\n\nPG2 2502", ConsoleColor::Green);
+    for (auto& [name,grade] : grades)
+    {
+        std::cout << std::setw(7) << std::right;
+        //ternary operator. shorthand for if-else block
+        // (condition) ? trueblock : falseblock;
+        ConsoleColor color = 
+            (grade < 59.5) ? ConsoleColor::Red :
+            (grade < 69.5) ? ConsoleColor::Yellow :
+            (grade < 79.5) ? ConsoleColor::Blue :
+            (grade < 89.5) ? ConsoleColor::Cyan :
+            ConsoleColor::Green;
+        Console::Write(grade, color);
+        std::cout << " " << name << "\n";
+    }
+    std::cout << "\n\n";
+}
 
 
 int main()
@@ -37,7 +76,10 @@ int main()
 
     */
     std::vector<int> numbers = { 0,1,2,3,4,5,6 };
-    int searchNumber = 15;
+    int searchNumber = -1;
+    int index = LinearSearch(numbers, searchNumber);
+    if (index < 0) std::cout << "\nNOT FOUND!\n";
+    else std::cout << "found at index " << index << "\n";
 
 
 
@@ -77,13 +119,55 @@ int main()
     dorasBackpack[Weapon::Axe] = 7;//simply overwrites the value if the key is already in the map
 
 
+
+    std::map<std::string, float> menu;
+    //2 ways to add to a map:
+    //1) easy way. map[key] = value;
+    //2) hard way. map.insert(keyvaluepair);
+
+    menu["French Fries"] = 1.50f;
+    menu["Milkshake"] = 8.99f;
+    menu["Milkshake"] = 6.99f;//overwrites
+
+    std::pair<std::string, float> menuPair = 
+        std::make_pair("Cheese burger", 5.99f);
+    auto result = menu.insert(menuPair);
+    menuPair.second = 4.99;
+    result = menu.insert(menuPair);//will NOT overwrite
+    if (result.second == false)
+        std::cout << "the item is already on the menu.\n";
+
+    std::cout << "\n\nPG2 Cafe\n";
+    for (auto& [menuItem,menuPrice] : menu)
+    {
+        std::cout << std::setw(15) << std::left;
+        std::cout << menuItem;
+        std::cout << std::setw(7) << std::right;
+        std::cout << menuPrice << "\n";
+    }
+    std::cout << "\n\n";
     /*
         CHALLENGE:
 
-            Create a map that stores names (string) and grades. Call the variable grades.
+            Create a map that stores names (string) and grades. 
+            Call the variable grades.
             Add students and grades to your map.
 
     */
+    std::map<std::string, double> grades;
+
+    srand(time(NULL));
+    std::vector<std::string> students{
+"Gabriel","Gabe","Alexavier","Kennedy","Ariana","Kaleb","Abigail","Christopher","Diego",
+"Steven","Ethan","Jose","Kameti","Emmanuel","Dominic","Reid","Ronnie","Ruby Rose","Philicity",
+"Marcos","Giezi","Daniel","Noah"
+    };
+    for (auto& student : students)
+    {
+        grades[student] = rand() % 10001 / 100.0;
+    }
+
+    PrintGrades(grades);
 
 
 
