@@ -146,6 +146,24 @@ int main()
         std::cout << menuPrice << "\n";
     }
     std::cout << "\n\n";
+
+    auto foundMenuItem = menu.find("Dino Nuggies");
+    if (foundMenuItem == menu.end()) //not found
+        std::cout << "Dino Nuggies is not on the menu. WHY?!?!\n";
+
+    foundMenuItem = menu.find("Cheese burger");
+    if (foundMenuItem != menu.end())
+    {
+        float oldPrice = foundMenuItem->second;
+        //2 ways to update a value
+        //1) map[key] = newvalue
+        //2) iterator->second = newvalue;
+        foundMenuItem->second *= 1.10f;
+        std::cout << "Cheese burger used to costs " << oldPrice << "\n";
+        std::cout << "Now it costs " << foundMenuItem->second << "!! Thanks Putin!\n\n";
+
+        //foundMenuItem->second << "\n";
+    }
     /*
         CHALLENGE:
 
@@ -241,14 +259,6 @@ int main()
 
 
 
-    /*
-        CHALLENGE:
-
-            look for a specific student in the map.
-            If the student is found, print out the student's grade
-            else print out a message that the student was not found
-
-    */
 
 
 
@@ -269,6 +279,12 @@ int main()
 
 
     /*
+        CHALLENGE:
+
+            look for a specific student in the map.
+            If the student is found, print out the student's grade
+            else print out a message that the student was not found
+   
         CHALLENGE:
 
             Pick any student and curve the grade (add 5) that is stored in the grades map
