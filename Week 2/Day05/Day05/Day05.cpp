@@ -290,4 +290,43 @@ int main()
             Pick any student and curve the grade (add 5) that is stored in the grades map
 
     */
+    do
+    {
+        std::string studentName = Input::GetString("Name of student to curve: ");
+        if (studentName.empty()) break;
+
+        studentName[0] = std::toupper(studentName[0]);
+        auto foundStudent = grades.find(studentName);
+        if (foundStudent != grades.end())
+        {
+            std::cout << studentName << " had a grade of " << foundStudent->second;
+            foundStudent->second = std::min(100.0, foundStudent->second + 5);
+            std::cout << ". Now the grade is " << foundStudent->second << "!\n";
+        }
+        else
+            std::cout << studentName << " is not in PG2 this month.\n";
+
+        PrintGrades(grades);
+
+    } while (true);
+
+    do
+    {
+        std::string studentName = Input::GetString("Name of student to drop: ");
+        if (studentName.empty()) break;
+
+        studentName[0] = std::toupper(studentName[0]);
+        auto foundStudent = grades.find(studentName);
+        if (foundStudent != grades.end())
+        {
+            std::cout << studentName << " had a grade of " << foundStudent->second;
+            grades.erase(foundStudent);
+            std::cout << ". The student has been dropped.\n";
+        }
+        else
+            std::cout << studentName << " is not in PG2 this month.\n";
+
+        PrintGrades(grades);
+
+    } while (true);
 }
