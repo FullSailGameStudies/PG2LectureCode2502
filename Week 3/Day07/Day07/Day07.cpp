@@ -2,6 +2,8 @@
 //
 
 #include <iostream>
+#include "Spaceship.h"
+#include "Color.h"
 
 
 /*              CLASSESS
@@ -49,14 +51,14 @@ int main()
     
     */
 
-    /*
-        CHALLENGE:
+    //to create an instance, we MUSt call a constructor
+    Spaceship falcon;//calls the default ctor. created an instance of the Spaceship class
+    Spaceship redOne(5,20,3,45);//created an instance of the Spaceship class
 
-            Create a Person class.
-            Right-Click the project and select "Add > Class..."
-
-    */
-
+    int num;
+    Color myColor;
+    myColor.red = 255;
+    myColor.alpha = 255;
 
 
 
@@ -73,10 +75,6 @@ int main()
 
     */
 
-    /*
-        CHALLENGE:
-            Add an age field and a name field to the Person class
-    */
 
 
 
@@ -100,10 +98,6 @@ int main()
     */
 
 
-    /*
-        CHALLENGE:
-            write an ItsMyBirthday method. increment age and print out a happy message.
-    */
 
 
 
@@ -131,13 +125,6 @@ int main()
     */
 
 
-    /*
-
-        CHALLENGE:
-            Add Age getter/setter to provide access to the mAge field
-            Add a Name getter/setter for the mName field
-    */
-
 
 
 
@@ -163,9 +150,26 @@ int main()
 
 
     /*
+        CHALLENGE:
+
+            Create a Person class.
+            Right-Click the project and select "Add > Class..."
 
         CHALLENGE:
-            Add a constructor to the Person class to initialize the age and name fields
+            Add an age field and a name field to the Person class
+
+        CHALLENGE:
+            write an ItsMyBirthday method. 
+            increment age and print out a happy message.
+
+        CHALLENGE:
+            Add Age getter/setter to provide access to the mAge field
+            Add a Name getter/setter for the mName field
+   
+        CHALLENGE:
+            Add a constructor to the Person class to 
+                initialize the age and name fields
+            Create an instance in main to initialize a Person object.
     */
 
 
