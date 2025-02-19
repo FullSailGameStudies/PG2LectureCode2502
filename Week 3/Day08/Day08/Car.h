@@ -11,7 +11,10 @@ public:
 	Car(int year, std::string make, std::string model)
 		: mModelYear(year), mMake(make), mModel(model), mFuelLevel(0), mMaxFuelLevel(15)
 	{	}
-	std::string vehicleInformation();
+	//mark the base method as virtual
+	//this tells the compiler that derived classes MIGHT override it
+	//derived classes are NOT REQUIRED to override it
+	virtual std::string vehicleInformation();
 
 	void refuel()
 	{
@@ -39,7 +42,7 @@ public:
 		std::cout << "Number of cars made: " << mNumberOfCarsMade << "\n";
 	}
 
-private:
+protected:
 	int mModelYear;
 	std::string mModel;
 	std::string mMake;

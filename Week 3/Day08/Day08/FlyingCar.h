@@ -10,9 +10,12 @@ public:
 		int altitude, int maxAlt) :
 		//call the base ctor
 		Car(year, make, model),//a method call
-		altitude_(altitude), maxAlt_(maxAlt)
+		altitude_(altitude), 
+		maxAlt_(maxAlt)
 	{
 	}
+	//provide a new declaration for the override
+	std::string vehicleInformation() override;
 
 	//getters/setters
 	int GetAltitude() const

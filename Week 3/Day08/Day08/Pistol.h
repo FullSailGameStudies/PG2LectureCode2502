@@ -10,6 +10,12 @@ public:
 	{
 	}
 
+	//override the pure virtual base method
+	//so that Pistol would not be abstract too
+	void showMe() override {
+
+	}
+
 	int Rounds() const { return rounds_; }
 	void Rounds(int rounds)
 	{

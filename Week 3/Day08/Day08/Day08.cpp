@@ -9,9 +9,20 @@
 #include "FlyingCar.h"
 #include "Pistol.h"
 
+void Counter()
+{
+	//static variables stay in memory 
+	//while the app is running
+	static int i = 0; 
+	std::cout << i << " ";
+	i++;
+}
 
 int main()
 {
+	for (int j = 0; j < 10; j++)
+		Counter();
+	std::cout << "\n\n";
 	/*
 		╔═══════════════╗
 		║  Inheritance  ║
@@ -44,6 +55,11 @@ int main()
 	//calling the FlyingCar ctor that calls the Car's ctor
 	FlyingCar jetsons(2025,"Tesla","CyberPlane",0,6000);
 
+	//compile-time polymorphism
+	int maxA = jetsons.MaxAltitude();//calls the getter
+	jetsons.MaxAltitude(1000);//calls the setter
+
+	std::cout << "\nMy Car: " << jetsons.vehicleInformation() << "\n\n";
 
 
 	/*
@@ -57,9 +73,10 @@ int main()
 			Add a constructor that calls the base constructor
 
 	*/
-	Pistol pewpew(100, 200, 10, 10);
-
-
+	Pistol pewpew(100, 200, 1, 10);
+	Pistol littleGun(50, 100, 5, 5);
+	//Pistol currentGun = pewpew + littleGun;
+	//Weapon wpn(10, 200);
 
 
 
