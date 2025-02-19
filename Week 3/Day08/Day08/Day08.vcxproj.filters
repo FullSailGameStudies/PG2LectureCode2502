@@ -42,6 +42,9 @@
     <ClCompile Include="FlyingCar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Pistol.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inheritance.h">
@@ -75,6 +78,9 @@
       <Filter>Misc\Input</Filter>
     </ClInclude>
     <ClInclude Include="FlyingCar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pistol.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
