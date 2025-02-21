@@ -2,6 +2,9 @@
 //
 
 #include <iostream>
+#include "Pistol.h"
+#include "Knife.h"
+#include <vector>
 
 
 class base
@@ -39,15 +42,20 @@ public:
 	}
 
 	int mModelYear; //each car has its own model year variable
-	static int mNumberOfCarsMade; //shared by ALL cars
+	static int mNumberOfCarsMade; //shared by ALL cars. There is ONLY ONE mNumberOfCarsMade
 
+	//static methods do NOT have a 'this' parameter
+	//static methods can ONLY access static members (fields and methods)
 	static void reporting()
 	{
-		//std::cout << "Model year: " << mModelYear << "\n"; //ERROR! cannot access non-static members
+		//std::cout << "Model year: " << this->mModelYear << "\n"; //ERROR! cannot access non-static members
 		std::cout << "Number of cars made: " << mNumberOfCarsMade << "\n";
 	}
 
-	void vehicleInfo() //there's a hidden parameter called 'this'
+	//non-static methods have
+	//a hidden parameter called 'this'
+	//non-static methods can access non-static AND static members
+	void vehicleInfo() 
 	{
 		std::cout << "Model Year: " << this->mModelYear << "\n";
 	}
@@ -59,6 +67,58 @@ int Car::mNumberOfCarsMade = 0;
 
 int main()
 {
+	Car myRide(2009);
+	myRide.vehicleInfo();
+	Car yourRide(2020);
+	yourRide.vehicleInfo();
+	Car::reporting();
+	Pistol banger(50, 100, 10, 2);
+	//only going to copy the weapon parts of banger
+	Weapon currentWeapon = banger;
+
+	std::vector<Weapon*> wicksBackpack;
+	wicksBackpack.push_back(&banger);
+
+	//pCurrent
+	Weapon* pCurrent = &banger;//ALWAYS safe. upcasting
+	//Pistol* ptrPistol = pCurrent;//NOT SAFE! downcasting is not safe.
+	pCurrent = new Knife(3, 5, 2);
+	wicksBackpack.push_back(pCurrent);
+	wicksBackpack.push_back(new Knife(5, 20, 3));
+
+	for (auto& wpnPtr : wicksBackpack)
+	{
+		wpnPtr->showMe();//runtime polymorphism!!
+	}
+	
+	int* pNum = new int(5);
+	//pNum = &banger;
+
+	//type* creates a pointer variable to the object of that type
+	//the pointer variable ONLY stores the memory location of 
+	//the object it points to.
+	//on the right-hand side, & means address-of
+	Pistol* pPistol = &banger;
+	//64-bit apps, pointers are 8-byte integers
+	std::cout << pPistol << "\n";
+
+	// = new means Heap memory is being used
+	// for every `= new` you NEED a corresponding `delete`
+	pPistol = new Pistol(100, 50, 15, 1);
+	Pistol* pPistol2 = pPistol;
+	delete pPistol;//clean up the memory
+	pPistol = nullptr;
+
+	if(pPistol2 != nullptr)
+		pPistol2->calcDamage();
+
+	std::vector<std::unique_ptr<Weapon>> dorasBackpack;
+	std::unique_ptr<Pistol> uPtr = 
+		std::make_unique<Pistol>(100, 50, 15, 1);
+	uPtr->Rounds(10);
+	dorasBackpack.push_back(std::move(uPtr));
+	//std::unique_ptr<Pistol> uPtr2 = std::move(uPtr);
+	//uPtr->Rounds(10);
 
 	/*
 		╔════════════╗
