@@ -84,6 +84,51 @@ int main()
         Lecture code: using the filePath variable, open an input file, use getline to read a line, print the line
     */
 
+    //1) open the file
+    std::ifstream inFile(fullPath);
+    if (inFile.is_open())
+    {
+        std::string line;
+        //inputstream, string
+        std::getline(inFile, line);//stops when it reads a \n OR reaches the end-of-file
+        std::cout << line << "\n";
+        //parse the string for the data
+        std::string data;
+        //getline's 1st parameter MUST be a stream, not a string
+        std::stringstream lineStream(line);
+        //stops when it reads a delimiter OR reaches the end-of-file
+        try
+        {
+            std::getline(lineStream, data, delimiter);
+            std::cout << data << "\n";
+
+            std::getline(lineStream, data, delimiter);
+            int iData = std::stoi(data);
+            std::cout << iData << "\n";
+
+            std::getline(lineStream, data, delimiter);
+            bool bData = stoi(data);
+            std::cout << bData << "\n";
+
+            std::getline(lineStream, data, delimiter);
+            std::cout << data << "\n";
+
+            std::getline(lineStream, data, delimiter);
+            double dData = std::stod(data);
+            std::cout << dData << "\n";
+        }
+        catch (const std::exception&)
+        {
+            std::cout << "The data is not the correct format.\nExiting the app!!\n";
+            return -1;
+        }
+    }
+    else
+        std::cout << fullPath << " could not be opened.\n";
+
+    //3) close the file
+    inFile.close();
+
 
     /*
 
