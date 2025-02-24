@@ -51,7 +51,7 @@ int main()
         Lecture code: set a filePath variable, open an output file, write some csv data to it
     */
     std::string fileName = "2502.csv";
-    std::string path = "C:\\temp\\2502\\";
+    std::string path = "";// C:\\temp\\2502\\";
     std::string fullPath = path + fileName;
     //1) Open the file
     std::ofstream outFile(fullPath);
@@ -167,4 +167,20 @@ int main()
     std::string multi = "Batman^Bruce Wayne^35#Superman^Clark Kent^25#Wonder Woman^Diana Prince^25#Aquaman^Arthur Curry^12";
     char collectionSeparator = '#';
     char objectSeparator = '^';
+    std::stringstream multiStream(multi);
+    while (!multiStream.eof())
+    {
+        std::string hero;
+        std::getline(multiStream, hero, collectionSeparator);
+
+        std::stringstream heroStream(hero);
+        std::string name, secret, ageStr;
+        std::getline(heroStream, name, objectSeparator);
+        std::getline(heroStream, secret, objectSeparator);
+        std::getline(heroStream, ageStr, objectSeparator);
+        int age = stoi(ageStr);
+
+        std::cout << "Hello citizen! I am " << name << "(aka " << secret << ").\n";
+        std::cout << "And I am " << age << " years old.\n";
+    }
 }
