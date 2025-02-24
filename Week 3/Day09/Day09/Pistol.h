@@ -3,8 +3,10 @@
 class Pistol : public Weapon
 {
 public:
-	Pistol(int range, int damage, int magCapacity, int rounds)
-		: Weapon(range,damage), magCapacity_(magCapacity), rounds_(rounds)
+	Pistol(int range, int damage, int magCapacity, int rounds) : 
+		Weapon(range,damage),  //calling the base (non-default) constructor 
+		magCapacity_(magCapacity), 
+		rounds_(rounds)
 	{
 	}
 
