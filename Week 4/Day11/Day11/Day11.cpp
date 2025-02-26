@@ -52,6 +52,13 @@ int main()
         std::cout << path << " could not be opened.\n";
     jaysFile.close();
 
+    int index = 0;
+    for (auto& car : garage)
+    {
+        car.SerializeCSV(std::cout, '\t');
+        if (index++ != garage.size() - 1)
+            std::cout << "\n";
+    }
 
     /*
         ╔═════════════╗
@@ -83,4 +90,46 @@ int main()
             split each car to get the car details
 
     */
+
+    Car oldRide("1908$Ford$ModelA", delimiter);
+    path = "garage.csv";
+    std::ifstream inFile(path);
+    if (inFile.is_open())
+    {
+        std::string line;
+        std::getline(inFile, line);
+        Car todaysRide(line, delimiter);
+        std::cout << "\n\n" << todaysRide.vehicleInformation() << "\n";
+    }
+    else
+        std::cout << path << " could not be opened.\n";
+    inFile.close();
+
+    path = "jaysGarage.csv";
+    std::ifstream jaysInFile(path);
+    std::vector<Car> newGarage;
+    if (jaysInFile.is_open())
+    {
+        while (!jaysInFile.eof())
+        {
+            std::string carLine;
+            //read a line
+            std::getline(jaysInFile, carLine);
+
+            //create a car using the line
+            Car nextCar(carLine, delimiter);
+
+            //store the car in the vector
+            newGarage.push_back(nextCar);
+        }
+    }
+    else
+        std::cout << path << " could not be opened.\n";
+    jaysInFile.close();
+
+    std::cout << "\n\nJay's Garage\n";
+    for (auto& car : newGarage)
+    {
+        std::cout << car.vehicleInformation() << '\n';
+    }
 }

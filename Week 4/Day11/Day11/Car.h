@@ -14,12 +14,18 @@ private:
 public:
 
 	std::string vehicleInformation();
-	void SerializeCSV(std::ofstream& outFile,char delimiter);
+	void SerializeCSV(std::ostream& outFile,char delimiter);
+	//parse the string to initialize the object
+	void DeserializeCSV(const std::string& csvData, char delimiter);
 
 	Car() :mModelYear(0), mMake(""), mModel("") { }
 	Car(int modelYear, std::string make, std::string model) :
 		mModelYear(modelYear), mMake(make), mModel(model)
 	{}
+	Car(const std::string& csvData, char delimiter)
+	{
+		DeserializeCSV(csvData, delimiter);
+	}
 
 	int ModelYear() const  //const says the method can't modify anything
 	{ 
